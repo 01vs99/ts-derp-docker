@@ -21,7 +21,7 @@ WORKDIR /build
 RUN git clone https://github.com/tailscale/tailscale --depth=1 --branch ${TAILSCALE_VERSION} .
 
 ### Build all the needed binaries
-RUN mkdir binout && GOOS=${TARGETOS} GOARCH=${TARGETARCH} ./tool/go build -o ./binout . ./cmd/tailscale ./cmd/tailscaled ./cmd/derper ./cmd/containerboot 
+RUN mkdir binout && GOOS=${TARGETOS} GOARCH=${TARGETARCH} ./tool/go build -o ./binout . ./cmd/tailscale ./cmd/tailscaled ./cmd/derper ./cmd/containerboot
 
 ## Runtime container
 
@@ -36,8 +36,7 @@ COPY init.sh /init.sh
 RUN chmod +x /init.sh
 
 ### Unless changed
-EXPOSE 80/tcp
-EXPOSE 443/tcp
+EXPOSE 4443/tcp
 EXPOSE 3478/udp
 
 ENTRYPOINT ["/init.sh"]
